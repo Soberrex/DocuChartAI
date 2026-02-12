@@ -43,8 +43,8 @@ COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
 # Create necessary directories
 RUN mkdir -p chroma_db
 
-# Expose port
-EXPOSE 8000
+# Expose port (Removed to let Railway manage routing via PORT env var)
+# EXPOSE 8000 -> Caused routing mismatch (App on $PORT, LB on 8000)
 
 # Health check (Let Railway handle this via TCP check)
 # HEALTHCHECK removed to prevent conflict with dynamic PORT assignment
