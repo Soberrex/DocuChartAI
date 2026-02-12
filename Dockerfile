@@ -50,5 +50,5 @@ RUN mkdir -p chroma_db
 # HEALTHCHECK removed to prevent conflict with dynamic PORT assignment
 
 # Run the application
-# Run the application using shell form to allow variable expansion
-CMD sh -c "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+# Run on port 8000 hardcoded to match Railway's load balancer setting
+CMD sh -c "uvicorn api.main:app --host 0.0.0.0 --port 8000"
