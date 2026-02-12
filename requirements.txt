@@ -1,11 +1,6 @@
-# AI & ML
-openai
-tiktoken
 chromadb
 rank_bm25
 sentence-transformers
-networkx
-tf-keras
 
 # PDF Processing
 PyPDF2
