@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# DEBUG: Print all environment keys to debug missing DATABASE_URL
+print(f"DEBUG: All Environment Keys: {sorted(list(os.environ.keys()))}")
+
 # PostgreSQL connection string
 # Format: postgresql://username:password@host:port/database
 DATABASE_URL = os.getenv(
