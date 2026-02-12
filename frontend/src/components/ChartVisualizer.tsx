@@ -74,7 +74,7 @@ const ChartVisualizer: React.FC<ChartVisualizerProps> = ({ data, title, type = '
                             outerRadius={80}
                             fill="#8884d8"
                             dataKey={dataKeys[0]} // Pie charts typically visualize one metric
-                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                            label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                         >
                             {chartData.map((entry: any, index: number) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
