@@ -50,4 +50,5 @@ EXPOSE 8000
 # HEALTHCHECK removed to prevent conflict with dynamic PORT assignment
 
 # Run the application
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application using shell form to allow variable expansion
+CMD sh -c "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000}"
