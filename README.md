@@ -10,7 +10,9 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB.svg?style=for-the-badge&logo=react)](https://react.dev/)
 
-![DocuChat AI Banner](https://placeholder.co/1200x400/1e293b/ffffff?text=DocuChat+AI+-+Chat+With+Your+Documents)
+![DocuChat AI Interface](./assets/screenshot.png)
+
+*Clean, modern interface for document-based AI chat with dark mode support*
 
 [Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Usage](#-usage) • [Architecture](#-architecture) • [API Docs](#-api-documentation)
 
@@ -62,6 +64,15 @@ DocuChat AI eliminates this friction by combining semantic search, AI-powered su
 
 ### Live Application
 👉 **[https://docuchartai-production.up.railway.app/](https://docuchartai-production.up.railway.app/)**
+
+### Screenshots
+
+<div align="center">
+
+![DocuChat AI Main Interface](./assets/screenshot.png)
+*Main interface showing document upload, chat area, and dark theme*
+
+</div>
 
 ### Example Workflows
 
