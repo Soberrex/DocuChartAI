@@ -1,181 +1,101 @@
-# 🏛️ ERPNext Architectural Refactoring Agent
+# 🤖 DocuChat AI - Enterprise RAG Chatbot
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
-![AI](https://img.shields.io/badge/AI-Llama%203.2-meta)
-![Status](https://img.shields.io/badge/Status-Prototype-orange)
+![DocuChat AI Preview](https://placehold.co/800x400?text=DocuChat+AI+Dashboard)
 
-**Internal Codename:** "The Architect"
+DocuChat AI is a modern Retrieval-Augmented Generation (RAG) system that allows users to chat with their documents (PDF, DOCX, XLSX). It features a sleek React frontend, a robust FastAPI backend, and persistent storage via Supabase.
 
-## 🎯 The Core Problem
-Legacy enterprise systems like **ERPNext** are massive and monolithic. Standard AI coding assistants fail when working with them because they treat code as plain text. They guess variable names and hallucinate dependencies because they lack **structural context**.
+## 🎯 The Problem It Solves
 
-**The Solution:** This project implements a **Hybrid Graph-RAG Architecture** that combines semantic search with Abstract Syntax Tree (AST) analysis to deterministically refactor legacy code.
+In today's data-driven world, professionals spend countless hours searching through dense documents to find specific information. Traditional keyword search is often insufficient for understanding context or synthesizing answers from multiple sources.
 
-## 🚀 Key Features (The "Secret Sauce")
+**DocuChat AI solves this by:**
+- **Eliminating manual search:** Instantly answers questions based on document content.
+- **Synthesizing information:** Combines data from multiple parts of a document to provide comprehensive answers.
+- **Reducing hallucinations:** Grounding LLM responses in your actual data, not just general training knowledge.
 
-### 1. Hybrid Retrieval Engine ("The Sniper")
-Unlike basic RAG tools that rely solely on vector similarity, this agent uses a dual-path approach:
-* **Dense Search (ChromaDB):** Uses local embeddings (`all-MiniLM-L6-v2`) to find conceptual matches.
-* **Sparse Search (BM25):** Uses exact keyword matching to pinpoint specific function names or error codes.
-* **Neural Re-Ranking:** A Cross-Encoder (`ms-marco-MiniLM-L-6-v2`) acts as a "Judge," re-scoring the top 20 results to eliminate 95% of noise.
+## ✨ Key Features
+- **📄 Multi-Format Support:** Upload and chat with PDF, Word, Excel, CSV, and Text files.
+- **💡 Smart Summaries:** Auto-generates summaries for every uploaded document.
+- **📊 Data Visualization:** Automatically detects data in answers and renders interactive charts (Bar, Line, Pie).
+- **🔍 Source Citations:** Every answer includes expandable source citations with relevance scores.
+- **🌗 Dark/Light Mode:** Premium UI with dynamic theme switching.
+- **💾 Session Persistence:** chats and document history are saved automatically via Supabase.
 
-### 2. Structural Intelligence
-Once the target file is found, the agent does not just read it.
-* **AST Parsing:** It parses the Python Abstract Syntax Tree to map the call graph.
-* **Dependency Injection:** It feeds *only* the relevant function context to the LLM, preventing context-window overflow.
+## 🔄 How It Works
 
-### 3. Agentic Refactoring
-* **Engine:** Powered by **Llama 3.2 (3B)** via OpenRouter for cost-effective, high-speed reasoning.
-* **Action:** Automatically extracts monolithic logic into clean **Service Layers** adhering to the Single Responsibility Principle.
-* **Verification:** Auto-generates **Pytest** unit tests to ensure the new code is reliable.
+The system uses a sophisticated RAG pipeline to ensure accurate, context-aware answers:
 
----
+1.  **Ingestion & Chunking:**
+    - When you upload a file (PDF, DOCX, etc.), the system extracts text and splits it into manageable chunks (1000 chars) with overlap.
+    - Metadata (page number, source file) is preserved.
 
-## 🛠️ Tech Stack
+2.  **Embedding & Storage:**
+    - Each chunk is converted into a vector embedding using `sentence-transformers`.
+    - These vectors are stored locally in **ChromaDB** for fast semantic retrieval.
 
-| Component | Technology | Reasoning |
-| :--- | :--- | :--- |
-| **Orchestration** | Python 3.12+ | Standard for AI Engineering. |
-| **Vector DB** | `chromadb` | Lightweight, local semantic storage. |
-| **Embeddings** | `sentence-transformers` | **Local Model** (Zero latency, $0 cost, No Rate Limits). |
-| **Re-Ranking** | `cross-encoder` | Increases retrieval accuracy by ~40%. |
-| **Intelligence** | **Llama 3.2** (via OpenRouter) | State-of-the-art reasoning at low cost. |
-| **Graphing** | `networkx` | For dependency mapping and visualization. |
-| **Visualization** | `mermaid.js` | Generates flowcharts of the refactoring path. |
+3.  **Retrieval (The "R" in RAG):**
+    - When you ask a question, your query is embedded into the same vector space.
+    - The system performs a semantic search to find the top 5 most relevant document chunks.
 
----
+4.  **Generation (The "G" in RAG):**
+    - The relevant chunks are fed into the LLM (via OpenRouter) as "Context".
+    - The LLM generates a natural language answer based *only* on that context.
+    - If data is detected, the system formats it for the frontend to render as a chart.
 
-## 📂 Project Structure
+## 📈 Accuracy & Performance
 
-```text
-ERPNext-Analyzer/
-├── .env                        # Configuration & API Keys (OpenRouter)
-├── main.py                     # CLI Entry Point
-├── project_context.md          # Project documentation & context
-├── requirements.txt            # Python dependencies
-├── chroma_db/                  # Persistent Vector Database storage
-├── data/                       # Raw data & BM25 sparse indices
-├── generated/                  # 📂 Output Folder (AI Results)
-│   ├── new_service.py          # Refactored Service Class (AI Output)
-│   ├── test_service.py         # Auto-generated Unit Tests
-│   └── workflow.mmd            # Dependency Graph Diagram
-└── src/                        # 🧠 Core Source Code
-    ├── __init__.py             # Package initializer
-    ├── indexer.py              # Hybrid Search Engine (Local Embeddings + BM25)
-    ├── parser.py               # Abstract Syntax Tree (AST) Parser
-    ├── pipeline_manager.py     # Manages the Parser -> Visualizer -> AI workflow
-    ├── refactoring_engine.py   # AI Agent (Llama 3.2 via OpenRouter)
-    └── visualizer.py           # Diagram Generator
+DocuChat AI is engineered for high precision:
 
-    Here is the fully updated, professional version of your Project Bible (which you should save as README.md for GitHub).
-
-I have updated the Tech Stack, File Structure, and Narrative to match your recent changes (switching to Llama 3.2, Local Embeddings, and the new file names like pipeline_manager.py).
-
-📝 Action: Create/Overwrite README.md
-Copy and paste the code block below into a file named README.md in your project folder.
-
-Markdown
-
-# 🏛️ ERPNext Architectural Refactoring Agent
-
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
-![AI](https://img.shields.io/badge/AI-Llama%203.2-meta)
-![Status](https://img.shields.io/badge/Status-Prototype-orange)
-
-**Internal Codename:** "The Architect"
-
-## 🎯 The Core Problem
-Legacy enterprise systems like **ERPNext** are massive and monolithic. Standard AI coding assistants fail when working with them because they treat code as plain text. They guess variable names and hallucinate dependencies because they lack **structural context**.
-
-**The Solution:** This project implements a **Hybrid Graph-RAG Architecture** that combines semantic search with Abstract Syntax Tree (AST) analysis to deterministically refactor legacy code.
-
-## 🚀 Key Features (The "Secret Sauce")
-
-### 1. Hybrid Retrieval Engine ("The Sniper")
-Unlike basic RAG tools that rely solely on vector similarity, this agent uses a dual-path approach:
-* **Dense Search (ChromaDB):** Uses local embeddings (`all-MiniLM-L6-v2`) to find conceptual matches.
-* **Sparse Search (BM25):** Uses exact keyword matching to pinpoint specific function names or error codes.
-* **Neural Re-Ranking:** A Cross-Encoder (`ms-marco-MiniLM-L-6-v2`) acts as a "Judge," re-scoring the top 20 results to eliminate 95% of noise.
-
-### 2. Structural Intelligence
-Once the target file is found, the agent does not just read it.
-* **AST Parsing:** It parses the Python Abstract Syntax Tree to map the call graph.
-* **Dependency Injection:** It feeds *only* the relevant function context to the LLM, preventing context-window overflow.
-
-### 3. Agentic Refactoring
-* **Engine:** Powered by **Llama 3.2 (3B)** via OpenRouter for cost-effective, high-speed reasoning.
-* **Action:** Automatically extracts monolithic logic into clean **Service Layers** adhering to the Single Responsibility Principle.
-* **Verification:** Auto-generates **Pytest** unit tests to ensure the new code is reliable.
-
----
+- **Context-Aware Retrieval:** Uses semantic search (cosine similarity) to understand the *meaning* of your query, not just keywords.
+- **Source Tracking:** Unlike standard chatbots, every claim is backed by a specific source citation from your uploaded document.
+- **Relevance Scoring:** The system calculates a confidence score for every answer. High confidence (>70%) indicates strong evidence in the text.
+- **Hallucination Prevention:** The LLM is strictly instructed to answer *only* from the provided context, significantly reducing false information.
 
 ## 🛠️ Tech Stack
+- **Frontend:** React, Vite, Material-UI (MUI), Recharts
+- **Backend:** FastAPI, Python 3.11
+- **Database:** Supabase (PostgreSQL)
+- **Vector DB:** ChromaDB (local persistence for embeddings)
+- **LLM:** OpenRouter (OpenAI-compatible API)
 
-| Component | Technology | Reasoning |
-| :--- | :--- | :--- |
-| **Orchestration** | Python 3.12+ | Standard for AI Engineering. |
-| **Vector DB** | `chromadb` | Lightweight, local semantic storage. |
-| **Embeddings** | `sentence-transformers` | **Local Model** (Zero latency, $0 cost, No Rate Limits). |
-| **Re-Ranking** | `cross-encoder` | Increases retrieval accuracy by ~40%. |
-| **Intelligence** | **Llama 3.2** (via OpenRouter) | State-of-the-art reasoning at low cost. |
-| **Graphing** | `networkx` | For dependency mapping and visualization. |
-| **Visualization** | `mermaid.js` | Generates flowcharts of the refactoring path. |
+## 🚀 Quick Start (Local)
 
----
+### 1. Backend Setup
+```bash
+# Clone repository
+git clone https://github.com/yourusername/DocuChat-AI.git
+cd DocuChat-AI
 
-## 📂 Project Structure
-
-```text
-ERPNext-Analyzer/
-├── main.py                     # CLI Entry Point
-├── requirements.txt            # Dependency list
-├── .env                        # API Keys (OPENROUTER_API_KEY)
-├── data/                       # Local ChromaDB & BM25 indices
-├── generated/                  # AI Outputs (Refactored Code, Diagrams)
-└── src/
-    ├── __init__.py
-    ├── indexer.py              # Hybrid Search Engine (Local Embeddings)
-    ├── pipeline_manager.py     # The "Brain" (Orchestrates Search -> Refactor)
-    ├── parser.py               # AST Code Analyzer
-    ├── refactoring_engine.py   # Llama 3.2 Interface
-    └── visualizer.py           # Mermaid Diagram Generator
-
-
-⚡ Quick Start
-1. Installation
-Clone the repository and install the dependencies.
-
-Bash
+# Install dependencies
 pip install -r requirements.txt
 
-2. Configuration
-Create a .env file and add your OpenRouter key:
+# Create .env file
+# Copy .env.example to .env and add your API keys (OPENROUTER_API_KEY, DATABASE_URL)
+cp .env.example .env
 
-Ini, TOML
+# Run API
+uvicorn api.main:app --reload --port 8000
+```
 
-OPENROUTER_API_KEY=sk-or-v1-...
-3. Initialize the Brain
-Scan your dataset to build the Vector and Keyword indices.
+### 2. Frontend Setup
+```bash
+cd frontend
 
-Bash
+# Install dependencies
+npm install
 
-python main.py init data/
-4. Run the Agent
-Ask a question to trigger the pipeline (Search -> Analyze -> Refactor).
+# Run dev server
+npm run dev
+```
 
-Bash
+Visit `http://localhost:5173` (Frontend) or `http://localhost:8000/docs` (API Docs).
 
-python main.py ask "How are taxes calculated?"
-📊 Pipeline Visualized
-User Query: "Refactor the tax logic."
+## 📁 Project Structure
+- `api/`: FastAPI endpoints and entry point
+- `frontend/`: React application source
+- `src/`: Core RAG logic (ingestion, embedding, retrieval)
+- `data/`: (Ignored) Temporary data storage
+- `chroma_db/`: (Ignored) Vector store persistence
 
-Hybrid Indexer: Retrieves sales_invoice.py (Rank 1).
-
-AST Parser: Identifies calculate_taxes_and_totals is the root cause.
-
-Llama 3.2 Agent: Writes SalesTaxService class.
-
-Output: Saves new_service.py and test_service.py.
-
-📜 License
-MIT License. Built for the Open Source Community.
+## 📜 License
+MIT

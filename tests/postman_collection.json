@@ -1,0 +1,367 @@
+{
+    "info": {
+        "_postman_id": "erpnext-rag-api-collection",
+        "name": "ERPNext RAG API - Production Testing",
+        "description": "Comprehensive API testing collection for Enterprise RAG System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health & Info",
+            "item": [
+                {
+                    "name": "Root - API Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/health",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "health"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Search",
+            "item": [
+                {
+                    "name": "Search - Calculate Taxes",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"query\": \"How are taxes calculated?\",\n    \"top_k\": 10\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/search",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "search"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Search - Payment Processing",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"query\": \"payment processing\",\n    \"top_k\": 5\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/search",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "search"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Search - Custom Top K",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"query\": \"inventory management\",\n    \"top_k\": 3\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/search",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "search"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Metrics & Stats",
+            "item": [
+                {
+                    "name": "Get Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "stats"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Recent Queries - Default",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/recent-queries",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "recent-queries"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Recent Queries - Limit 5",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/recent-queries?limit=5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "recent-queries"
+                            ],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Admin Operations",
+            "item": [
+                {
+                    "name": "Index New Folder",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"folder_path\": \"data/\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/index",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "index"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Reset Metrics",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/metrics/reset",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "metrics",
+                                "reset"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Authentication Tests",
+            "item": [
+                {
+                    "name": "Search - No API Key (Should Fail)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"query\": \"test query\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/search",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "search"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Search - Invalid API Key (Should Fail)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "invalid-key-12345",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"query\": \"test query\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/search",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "search"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string"
+        },
+        {
+            "key": "api_key",
+            "value": "dev-test-key-12345",
+            "type": "string"
+        }
+    ]
+}
