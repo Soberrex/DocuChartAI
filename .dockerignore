@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -8,8 +9,26 @@ venv/
 .venv
 .git/
 .gitignore
-*.md
+
+# Frontend & Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Data & Database
+chroma_db/
+chroma.sqlite3
+uploads/
+generated/
+data/
+*.sqlite3
+*.db
+
+# Config & Logs
 .env
+.env.*
+!.env.example
 .vscode/
 .idea/
 *.log
@@ -17,3 +36,4 @@ tests/
 .pytest_cache/
 htmlcov/
 .coverage
+.supabase_credentials
