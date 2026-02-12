@@ -29,6 +29,11 @@ print(f"🌍 Environment: {ENV_TYPE}")
 REQUIRED_VARS = ["DATABASE_URL"]
 OPTIONAL_VARS = ["OPENAI_API_KEY", "GEMINI_API_KEY", "API_KEY"]
 
+print("-" * 50)
+print("🔍 DEEP DIAGNOSTICS MODE")
+print(f"All keys found: {sorted(list(os.environ.keys()))}")
+print("-" * 50)
+
 missing_critical = []
 
 for key in REQUIRED_VARS + OPTIONAL_VARS:
@@ -49,13 +54,8 @@ print("-" * 50)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    if ENV_TYPE != "Local":
-        print(f"🚨 CRITICAL ERROR: Missing {', '.join(missing_critical)} in production!")
-        print("Scrubbing process to prevent unstable state.")
-        sys.exit(1)
-    
-    print("⚠️  Using default local database URL")
-    DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/rag_chatbot"
+    print("⚠️  DATABASE_URL missing in production. Using DUMMY local URL to keep app alive for debugging.")
+    DATABASE_URL = "postgresql://debug:debug@localhost:5432/debug_db"
 
 # Create engine
 engine = create_engine(
