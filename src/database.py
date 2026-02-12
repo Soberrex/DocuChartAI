@@ -20,7 +20,6 @@ DATABASE_URL = os.getenv(
 )
 
 # Create engine
-print(f"DEBUG: DATABASE_URL is set to: {DATABASE_URL.split('@')[-1] if '@' in DATABASE_URL else 'NOT_SET_OR_INVALID'}")
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True,  # Verify connections before using
