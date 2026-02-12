@@ -7,17 +7,55 @@ from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
+import sys
+
 load_dotenv()
 
-# DEBUG: Print all environment keys to debug missing DATABASE_URL
-print(f"DEBUG: All Environment Keys: {sorted(list(os.environ.keys()))}")
+# Secure Environment Logging
+print("-" * 50)
+print("🔍 CONFIGURATION CHECK")
+print("-" * 50)
+
+# Check operational environment
+ENV_TYPE = "Local"
+if os.getenv("RAILWAY_ENVIRONMENT"):
+    ENV_TYPE = "Railway"
+elif os.getenv("RENDER"):
+    ENV_TYPE = "Render"
+
+print(f"🌍 Environment: {ENV_TYPE}")
+
+# Check critical variables
+REQUIRED_VARS = ["DATABASE_URL"]
+OPTIONAL_VARS = ["OPENAI_API_KEY", "GEMINI_API_KEY", "API_KEY"]
+
+missing_critical = []
+
+for key in REQUIRED_VARS + OPTIONAL_VARS:
+    value = os.getenv(key)
+    if value:
+        masked = f"{value[:8]}...{value[-4:]}" if len(value) > 12 else "***"
+        print(f"✅ {key}: Found ({masked})")
+    else:
+        if key in REQUIRED_VARS:
+            print(f"❌ {key}: MISSING (Critical)")
+            missing_critical.append(key)
+        else:
+            print(f"⚠️  {key}: Missing (Optional)")
+
+print("-" * 50)
 
 # PostgreSQL connection string
-# Format: postgresql://username:password@host:port/database
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@localhost:5432/rag_chatbot"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    if ENV_TYPE != "Local":
+        print(f"🚨 CRITICAL ERROR: Missing {', '.join(missing_critical)} in production!")
+        print("Scrubbing process to prevent unstable state.")
+        sys.exit(1)
+    
+    print("⚠️  Using default local database URL")
+    DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/rag_chatbot"
 
 # Create engine
 engine = create_engine(
